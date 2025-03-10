@@ -3,10 +3,6 @@ use App\Models\FetchQuestion;  // Import FetchQuestion model
 use App\Models\TestAttempt;    // Import TestAttempt model (if needed)
 use App\Models\FetchTest;           // Import Test model (if needed)
 
-public function showTest($testId)
-{
-
-}
 class TestController extends Controller
 {
     public function showTest($test_id, $test_attempt_token)

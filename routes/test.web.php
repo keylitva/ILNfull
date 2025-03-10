@@ -70,6 +70,9 @@ Route::get('/tests/dashboard', function () {
     if (!Auth::check()) {
         return redirect('/login')->withErrors(['error' => 'You are not allowed to be there please login.']);
     }
+    if (auth()->user()->permissions !== 'teacher' && auth()->user()->permissions !== 'admin') {
+        return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
+    }
     $tests = FetchTest::where('created_by', auth()->id())
         ->withCount(['attempts as attempts_count'])
         ->withAvg('attempts', 'score')
@@ -92,22 +95,10 @@ Route::get('/tests/dashboard', function () {
             ];
         });
       //dd($tests);
-    return view('test.users_created_tests', [
+    return view('dashboards.users_created_tests', [
         'tests' => $tests
     ]);
 })->name('TestDashboard')->middleware('auth');
-
-Route::post('/tests/delete/{test}/', function ($test_id) {
-    if (!Auth::check()) {
-        return redirect('/')->withErrors(['error' => 'You are trying to perform a forbiden action.']);
-    }
-    $test = FetchTest::where('test_id', $test_id)->get();
-    if ($test[0]->created_by == auth()->id()) {
-        
-        $test[0]->delete();
-        return redirect()->route('TestDashboard')->with('success', 'Test deleted successfully');
-    }
-})->name('test.destroy');
 
 Route::post('/search_test', function () {
     $test_code = request('test_code');
@@ -127,11 +118,9 @@ Route::post('/search_test', function () {
         // Redirect to the test route
         return redirect("/test/{$test_code}");
     }
-
+    
     // If validation fails, return an error message or redirect back
-    return back()->withErrors([
-        'error' => 'Invalid test code or user.',
-    ]);
+    return redirect()->route('test.search')->with('error', 'Invalid test code or user.');
 });
 
 Route::post('/start_test', function () {
@@ -153,7 +142,7 @@ Route::post('/start_test', function () {
         // Redirect to the test route
         return redirect("/test/{$test}/{$test_attempt->test_attempt_token}");
     }
-    dd($test, $test_user);
+    //dd($test, $test_user);
     // If validation fails, return an error message or redirect back
     return back()->withErrors([
         'error' => 'Invalid test code or user.',

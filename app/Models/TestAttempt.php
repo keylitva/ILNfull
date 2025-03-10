@@ -12,4 +12,13 @@ class TestAttempt extends Model
     protected $casts = [
         'attempt_date' => 'datetime',
     ];
+    public function test()
+    {
+        return $this->belongsTo(FetchTest::class, 'test_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
