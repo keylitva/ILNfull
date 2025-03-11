@@ -110,25 +110,24 @@
 
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             <template x-for="test in filteredTests()" :key="test.id || test.test_alternative_id">
-                <div
-                    class="relative bg-gradient-to-br from-[#080A25] to-[#1A2038] rounded-2xl border border-white/20 p-5 transition-all transform hover:scale-105 hover:border-white/30 flex flex-col justify-between">
-
+                <div class="relative bg-gradient-to-br from-[#080A25] to-[#1A2038] rounded-2xl border border-white/20 p-5 transition-all transform hover:scale-105 hover:border-white/30 flex flex-col justify-between">
+                    
                     <!-- Header Section: Test Info -->
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-5">
+                    <div class="flex flex-row items-center justify-between mb-5">
                         <div class="flex items-center gap-4">
-                            <h2 class="text-xl font-semibold text-white truncate" x-text="test.test_name"></h2>
+                            <h2 class="text-lg sm:text-xl font-semibold text-white truncate" x-text="test.test_name"></h2>
                             <span class="px-3 py-1 text-xs rounded-full font-medium"
                                 :class="test.is_active ? 'bg-green-600/20 text-green-400' : 'bg-red-600/20 text-red-400'"
                                 x-text="test.is_active ? 'Active' : 'Inactive'"></span>
                         </div>
-                        <label :for="'checkbox-' + test.id" class="flex items-center cursor-pointer">
+                        <label :for="'checkbox-' + test.id" class="flex items-center cursor-pointer mt-0 sm:mt-2">
                             <input type="checkbox" :id="'checkbox-' + test.id" :value="test.id"
                                 x-model="selectedTests" class="sr-only peer">
                             <span
                                 class="w-9 h-5 bg-gray-200 rounded-full peer-checked:bg-indigo-600 transition-all after:w-4 after:h-4 after:top-[2px] after:left-[2px] peer-checked:after:translate-x-4"></span>
                         </label>
                     </div>
-
+            
                     <!-- Test Metrics -->
                     <div class="bg-white/5 p-4 rounded-lg text-sm space-y-3 mb-4">
                         <p class="flex justify-between">
@@ -146,7 +145,7 @@
                                 x-text="test.last_attempt ? timeAgo(test.last_attempt) : 'Never'"></span>
                         </p>
                     </div>
-
+            
                     <!-- Fixed Description Box with Fade Effect -->
                     <div class="bg-white/5 p-4 rounded-lg text-sm mb-4 relative h-24 overflow-hidden">
                         <p class="text-white/80 line-clamp-3" x-text="test.description"></p>
@@ -154,9 +153,9 @@
                             style="background: linear-gradient(to top, rgba(26,32,56,0.8), rgba(26,32,56,0));">
                         </div>
                     </div>
-
+            
                     <!-- Additional Info -->
-                    <div class="flex flex-col sm:flex-row sm:justify-between mb-4">
+                    <div class="flex flex-wrap gap-2 justify-between mb-4">
                         <span class="px-3 py-1 rounded-md bg-white/5 text-white text-sm">
                             Code: <span x-text="test.test_alternative_id"></span>
                         </span>
@@ -164,28 +163,27 @@
                             Time: <span x-text="test.time_limit_minutes"></span>m
                         </span>
                     </div>
-
+            
                     <!-- Action Buttons -->
                     <div class="flex flex-col sm:flex-row sm:justify-end gap-3">
                         <a :href="`/tests/results/${test.id}`"
-                            class="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg transition-all hover:from-indigo-600 hover:to-purple-600">
+                            class="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg transition-all hover:from-indigo-600 hover:to-purple-600 text-center w-full sm:w-auto">
                             View Results
                         </a>
                         <a :href="`/tests/edit/${test.id}`"
-                            class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-lg transition-all hover:bg-gray-600">
+                            class="px-4 py-2 text-sm font-medium text-white bg-gray-700 rounded-lg transition-all hover:bg-gray-600 text-center w-full sm:w-auto">
                             Edit
                         </a>
-                        <form :action="`/tests/delete/${test.id}`" method="POST" class="inline-block">
+                        <form :action="`/tests/delete/${test.id}`" method="POST">
                             @csrf
                             @method('POST')
                             <button type="submit"
-                                class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg transition-all hover:bg-red-500"
+                                class="px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg transition-all hover:bg-red-500 text-center w-full sm:w-auto"
                                 onclick="return confirm('Are you sure you want to delete this test?')">
                                 Delete
                             </button>
                         </form>
                     </div>
-
                 </div>
             </template>
         </div>

@@ -83,19 +83,19 @@
                     @endauth
 
                     @guest
-                        <div class="hidden md:block">
-                            <div class="pt-4 pb-3 flex justify-between items-center">
-                                <a href="{{ route('login') }}"
-                                    class="px-4 py-2 pl-10 pr-10 border border-white text-white rounded-3xl hover:bg-gray-800 transition text-center">
-                                    Login
-                                </a>
-                                <a href="{{ route('register') }}"
-                                    class="ml-3 px-4 py-2 pl-10 pr-10 bg-white border border-white text-[#080A25] rounded-3xl hover:bg-gray-300 transition text-center">
-                                    Register
-                                </a>
-                            </div>
+                    <div class="hidden md:block">
+                        <div class="pt-4 pb-3 flex justify-between items-center">
+                            <a href="{{ route('login') }}"
+                                class="px-8 py-3 bg-white/10 backdrop-blur-xl border border-white/20 text-white rounded-2xl hover:bg-white/20 transition-all text-center shadow-lg">
+                                Login
+                            </a>
+                            <a href="{{ route('register') }}"
+                                class="ml-4 px-8 py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white border border-white/20 rounded-2xl hover:opacity-90 transition-all text-center shadow-lg">
+                                Register
+                            </a>
                         </div>
-                    @endguest
+                    </div>
+                @endguest
                 </div>
 
                 <!-- Mobile menu -->

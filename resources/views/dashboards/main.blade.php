@@ -1,8 +1,8 @@
 <x-layout class="bg-[#080A25] min-h-screen">
     <div class="container mx-auto px-4 py-8">
         <!-- Header Section with Glassmorphism -->
-        <div class="flex justify-between items-center mb-8 backdrop-blur-sm bg-gray-900/50 p-6 rounded-2xl border border-gray-700/30 z-10">
-            <h1 class="text-4xl font-bold bg-gradient-to-r from-indigo-400 to-purple-300 bg-clip-text text-transparent">
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8 backdrop-blur-sm bg-gray-900/50 p-6 rounded-2xl border border-gray-700/30 z-10 space-y-4 md:space-y-0 md:space-x-4">
+            <h1 class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-indigo-400 to-purple-300 bg-clip-text text-transparent text-center md:text-left">
                 @if(auth()->user()->permissions == "teacher")
                     Student Analytics Dashboard
                 @else
@@ -10,10 +10,10 @@
                 @endif
             </h1>
             <a href="{{ auth()->user()->permissions == 'teacher' ? route('TestDashboard') : url('/test') }}" 
-               class="bg-gradient-to-r from-indigo-600 to-purple-500 hover:from-indigo-500 hover:to-purple-400 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/30">
+               class="bg-gradient-to-r from-indigo-600 to-purple-500 hover:from-indigo-500 hover:to-purple-400 text-white px-6 md:px-8 py-3 rounded-xl font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/30 text-center">
                 {{ auth()->user()->permissions == 'teacher' ? 'Manage Tests' : '+ New Test' }}
             </a>
-        </div>
+        </div>        
 
         @if(auth()->user()->permissions == "teacher")
             <!-- Teacher View -->
